@@ -7,9 +7,14 @@
     "cf-typegen": "wrangler types --env-interface CloudflareBindings"
   },
   "dependencies": {
+    "eslint-config-prettier": "^10.1.8",
     "hono": "^4.12.7"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.0.3",
+    "globals": "^17.4.0",
+    "prettier": "3.8.1",
     "wrangler": "^4.4.0"
   }
 }

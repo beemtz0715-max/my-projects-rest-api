@@ -32,5 +32,4 @@ app.onError((error, c) => {
     'An unexpected server error occurred.',
   )
 })
-
 export default app

@@ -3,15 +3,15 @@ const seededAt = new Date().toISOString()
 let projects = [
   {
     id: 1,
-    name: "Bianca's Portfolio Website Refresh",
-    description: 'Update the project to be pink.',
+    name: "Pink Portfolio Glow‑Up",
+    description: "Refreshing the portfolio with a soft pink aesthetic.",
     created_at: seededAt,
     updated_at: seededAt,
   },
   {
     id: 2,
-    name: "Bianca's Design Systems Workshop",
-    description: 'Prepare pink material and posters for the class workshop.',
+    name: "Rosy Design Systems Workshop",
+    description: "Preparing blush‑themed slides and visual examples.",
     created_at: seededAt,
     updated_at: seededAt,
   },
@@ -21,27 +21,27 @@ let tasks = [
   {
     id: 1,
     project_id: 1,
-    title: 'Draft homepage wireframes',
-    description: 'Create desktop and mobile layout drafts.',
-    status: 'in_progress',
+    title: "Create blush wireframes",
+    description: "Design desktop and mobile layouts using pink tones.",
+    status: "in_progress",
     created_at: seededAt,
     updated_at: seededAt,
   },
   {
     id: 2,
     project_id: 1,
-    title: 'Collect new screenshots',
-    description: 'Replace old portfolio images.',
-    status: 'todo',
+    title: "Update portfolio screenshots",
+    description: "Replace old images with new pink‑themed visuals.",
+    status: "todo",
     created_at: seededAt,
     updated_at: seededAt,
   },
   {
     id: 3,
     project_id: 2,
-    title: 'Finalize slide deck',
-    description: 'Include examples of good API design.',
-    status: 'done',
+    title: "Finalize rosy slide deck",
+    description: "Add examples of clean API design with pink accents.",
+    status: "done",
     created_at: seededAt,
     updated_at: seededAt,
   },
@@ -72,7 +72,7 @@ export function createProject(input) {
   const project = {
     id: nextProjectId,
     name: input.name.trim(),
-    description: input.description?.trim() || '',
+    description: input.description?.trim() || "",
     created_at: timestamp,
     updated_at: timestamp,
   }
@@ -93,8 +93,8 @@ export function updateProject(id, input) {
   const current = projects[index]
   const updated = {
     ...current,
-    ...('name' in input ? { name: input.name.trim() } : {}),
-    ...('description' in input
+    ...("name" in input ? { name: input.name.trim() } : {}),
+    ...("description" in input
       ? { description: input.description.trim() }
       : {}),
     updated_at: nowIso(),
@@ -113,7 +113,7 @@ export function deleteProject(id) {
   }
 
   tasks = tasks.filter((task) => task.project_id !== id)
- 
+
   return true
 }
 
@@ -127,8 +127,8 @@ export function createTask(projectId, input) {
     id: nextTaskId,
     project_id: projectId,
     title: input.title.trim(),
-    description: input.description?.trim() || '',
-    status: input.status || 'todo',
+    description: input.description?.trim() || "",
+    status: input.status || "todo",
     created_at: timestamp,
     updated_at: timestamp,
   }
@@ -154,11 +154,11 @@ export function updateTask(id, input) {
   const current = tasks[index]
   const updated = {
     ...current,
-    ...('title' in input ? { title: input.title.trim() } : {}),
-    ...('description' in input
+    ...("title" in input ? { title: input.title.trim() } : {}),
+    ...("description" in input
       ? { description: input.description.trim() }
       : {}),
-    ...('status' in input ? { status: input.status } : {}),
+    ...("status" in input ? { status: input.status } : {}),
     updated_at: nowIso(),
   }
 

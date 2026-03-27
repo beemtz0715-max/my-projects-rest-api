@@ -17,7 +17,38 @@ let projects = [
   },
 ]
 
+let tasks = [
+  {
+    id: 1,
+    project_id: 1,
+    title: 'Draft homepage wireframes',
+    description: 'Create desktop and mobile layout drafts.',
+    status: 'in_progress',
+    created_at: seededAt,
+    updated_at: seededAt,
+  },
+  {
+    id: 2,
+    project_id: 1,
+    title: 'Collect new screenshots',
+    description: 'Replace old portfolio images.',
+    status: 'todo',
+    created_at: seededAt,
+    updated_at: seededAt,
+  },
+  {
+    id: 3,
+    project_id: 2,
+    title: 'Finalize slide deck',
+    description: 'Include examples of good API design.',
+    status: 'done',
+    created_at: seededAt,
+    updated_at: seededAt,
+  },
+]
+
 let nextProjectId = 3
+let nextTaskId = 4
 
 function clone(item) {
   return { ...item }
@@ -81,5 +112,62 @@ export function deleteProject(id) {
     return false
   }
 
+  tasks = tasks.filter((task) => task.project_id !== id)
+ 
   return true
+}
+
+export function listTasksByProject(projectId) {
+  return tasks.filter((task) => task.project_id === projectId).map(clone)
+}
+
+export function createTask(projectId, input) {
+  const timestamp = nowIso()
+  const task = {
+    id: nextTaskId,
+    project_id: projectId,
+    title: input.title.trim(),
+    description: input.description?.trim() || '',
+    status: input.status || 'todo',
+    created_at: timestamp,
+    updated_at: timestamp,
+  }
+
+  nextTaskId += 1
+  tasks.push(task)
+
+  return clone(task)
+}
+
+export function getTaskById(id) {
+  const task = tasks.find((item) => item.id === id)
+  return task ? clone(task) : null
+}
+
+export function updateTask(id, input) {
+  const index = tasks.findIndex((item) => item.id === id)
+
+  if (index === -1) {
+    return null
+  }
+
+  const current = tasks[index]
+  const updated = {
+    ...current,
+    ...('title' in input ? { title: input.title.trim() } : {}),
+    ...('description' in input
+      ? { description: input.description.trim() }
+      : {}),
+    ...('status' in input ? { status: input.status } : {}),
+    updated_at: nowIso(),
+  }
+
+  tasks[index] = updated
+  return clone(updated)
+}
+
+export function deleteTask(id) {
+  const startSize = tasks.length
+  tasks = tasks.filter((item) => item.id !== id)
+  return tasks.length !== startSize
 }

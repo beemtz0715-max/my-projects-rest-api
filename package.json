@@ -4,17 +4,17 @@
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy --minify",
-    "cf-typegen": "wrangler types --env-interface CloudflareBindings"
+    "cf-typegen": "wrangler types --env-interface CloudflareBindings",
+    "db:generate": "drizzle-kit generate"
   },
   "dependencies": {
-    "drizzle-orm": "^0.45.2",
-    "eslint-config-prettier": "^10.1.8",
     "hono": "^4.12.7",
     "zod": "^4.3.6"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "drizzle-kit": "^0.31.10",
+    "drizzle-orm": "^0.45.2",
     "eslint": "^10.0.3",
     "globals": "^17.4.0",
     "prettier": "3.8.1",

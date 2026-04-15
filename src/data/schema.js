@@ -49,3 +49,20 @@ export const users = sqliteTable(
   },
   (table) => [uniqueIndex('idx_users_email').on(table.email)],
 )
+
+export const sessions = sqliteTable(
+  'sessions',
+  {
+    id: integer('id').primaryKey({ autoIncrement: true }),
+    userId: integer('user_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    tokenHash: text('token_hash').notNull().unique(),
+    expiresAt: text('expires_at').notNull(),
+    createdAt: text('created_at').notNull(),
+  },
+  (table) => [
+    uniqueIndex('idx_sessions_token_hash').on(table.tokenHash),
+    index('idx_sessions_user_id').on(table.userId),
+  ],
+)

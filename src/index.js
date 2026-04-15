@@ -76,3 +76,14 @@ app.onError((error, c) => {
 })
 
 export default app
+
+app.get('/', (c) => {
+  return c.json({
+    status: 'API running',
+    endpoints: [
+      '/api/projects',
+      '/api/tasks',
+      '/api/auth'
+    ]
+  })
+})

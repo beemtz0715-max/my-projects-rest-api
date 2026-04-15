@@ -8,6 +8,27 @@
       "when": 1774318557335,
       "tag": "0000_acoustic_plazm",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1775174553482,
+      "tag": "0001_same_prodigy",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1775174839319,
+      "tag": "0002_nostalgic_brother_voodoo",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1775935508246,
+      "tag": "0003_great_joystick",
+      "breakpoints": true
     }
   ]
 }

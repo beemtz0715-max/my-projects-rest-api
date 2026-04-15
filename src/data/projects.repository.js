@@ -1,4 +1,4 @@
-import { asc, eq } from 'drizzle-orm'
+import { asc, eq, and } from 'drizzle-orm'
 import { nowIso } from './db'
 import { projects } from './schema'
 
@@ -9,20 +9,28 @@ function normalizeProjectInput(input) {
   }
 }
 
-export async function listProjects(db) {
-  return db.select().from(projects).orderBy(asc(projects.id))
+export async function listProjects(db, userId) {
+  return db
+    .select()
+    .from(projects)
+    .where(eq(projects.userId, userId))
+    .orderBy(asc(projects.id))
 }
 
-export async function getProjectById(db, id) {
-  const [project] = await db.select().from(projects).where(eq(projects.id, id))
+export async function getProjectById(db, id, userId) {
+  const [project] = await db
+    .select()
+    .from(projects)
+    .where(and(eq(projects.id, id), eq(projects.userId, userId)))
   return project || null
 }
 
-export async function createProject(db, input) {
+export async function createProject(db, userId, input) {
   const timestamp = nowIso()
 
   const values = {
     ...normalizeProjectInput(input),
+    userId,
     createdAt: timestamp,
     updatedAt: timestamp,
   }
@@ -31,7 +39,7 @@ export async function createProject(db, input) {
   return created
 }
 
-export async function updateProject(db, id, input) {
+export async function updateProject(db, id, userId, input) {
   const values = {
     updatedAt: nowIso(),
     ...('name' in input ? { name: input.name.trim() } : {}),
@@ -43,16 +51,16 @@ export async function updateProject(db, id, input) {
   const [updated] = await db
     .update(projects)
     .set(values)
-    .where(eq(projects.id, id))
+    .where(and(eq(projects.id, id), eq(projects.userId, userId)))
     .returning()
 
   return updated || null
 }
 
-export async function deleteProject(db, id) {
+export async function deleteProject(db, id, userId) {
   const deleted = await db
     .delete(projects)
-    .where(eq(projects.id, id))
+    .where(and(eq(projects.id, id), eq(projects.userId, userId)))
     .returning({ id: projects.id })
 
   return deleted.length > 0

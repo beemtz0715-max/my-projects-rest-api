@@ -1,6 +1,6 @@
-import { asc, eq } from 'drizzle-orm'
+import { asc, eq, and } from 'drizzle-orm'
 import { nowIso } from './db.js'
-import { tasks } from './schema.js'
+import { tasks, projects } from './schema.js'
 
 function normalizeTaskCreateInput(projectId, input) {
   const timestamp = nowIso()
@@ -63,4 +63,13 @@ export async function deleteTask(db, id) {
     .returning({ id: tasks.id })
 
   return deleted.length > 0
+}
+
+export async function getTaskByIdForUser(db, id, userId) {
+  const result = await db
+    .select({ task: tasks })
+    .from(tasks)
+    .innerJoin(projects, eq(tasks.projectId, projects.id))
+    .where(and(eq(tasks.id, id), eq(projects.userId, userId)))
+  return result[0]?.task || null
 }

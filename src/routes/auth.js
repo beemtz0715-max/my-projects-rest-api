@@ -133,12 +133,12 @@ auth.post('/refresh', async (c) => {
     throw new ApiError(401, 'UNAUTHORIZED', 'Invalid or expired refresh token.')
   }
 
-  if (new Date(session.expires_at) < new Date()) {
+  if (new Date(session.expiresAt) < new Date()) {
     throw new ApiError(401, 'UNAUTHORIZED', 'Invalid or expired refresh token.')
   }
 
   const accessToken = await signAccessToken(
-    { sub: session.user_id },
+      { sub: session.userId },
     c.env.JWT_SECRET,
   )
 

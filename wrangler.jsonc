@@ -7,8 +7,18 @@
     {
       "binding": "DB",
       "database_name": "projects_db",
-      "database_id": "86ccad9a-b65b-4028-82cc-002bca271ef8",
-      "migrations_dir": "./src/data/migrations"
-    }
-  ]
+      "database_id": "a6d37d02-6ed5-42d4-86d6-ca5f738d786b",
+      "migrations_dir": "./src/data/migrations",
+    },
+  ],
+  "ratelimits": [
+    {
+      "name": "AUTH_LIMITER",
+      "namespace_id": "1001",
+      "simple": {
+        "limit": 10,
+        "period": 60,
+      },
+    },
+  ],
 }
